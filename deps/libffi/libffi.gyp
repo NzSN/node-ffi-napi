@@ -130,8 +130,7 @@
         'include',
         # platform and arch-specific headers
         'config/<(OS)/<(target_arch)'
-      ],
-      'direct_dependent_settings': {
+      ],'direct_dependent_settings': {
         'include_dirs': [
           'include',
           # platform and arch-specific headers
@@ -146,7 +145,14 @@
               'sources': [ 'src/arm/sysv.S' ]
             }]
           ]
-        },'target_arch=="arm64"', {
+        },'target_arch=="loongarch64"', {
+          'sources': [ 'src/loongarch64/ffi.c' ],
+          'conditions': [
+            ['OS=="linux"', {
+              'sources': [ 'src/loongarch64/sysv.S' ]
+            }] 
+            ]
+	  },'target_arch=="arm64"', {
           'sources': [ 'src/aarch64/ffi.c' ],
           'conditions': [
             ['OS=="linux" or OS=="mac"', {

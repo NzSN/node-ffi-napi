@@ -88,6 +88,14 @@ void FFI::InitializeBindings(Env env, Object target) {
 #elif defined(X86_64) || (defined (__x86_64__) && defined (X86_DARWIN))
   /* Unix variants all use the same ABI for x86-64  */
   SET_ENUM_VALUE(FFI_UNIX64);
+#elif defined(__loongarch64)
+#if defined(__loongarch_soft_float)
+  SET_ENUM_VALUE(FFI_LP64S)
+#elif defined(__loongarch_single_float)
+  SET_ENUM_VALUE(FFI_LP64F)
+#else 
+  SET_ENUM_VALUE(FFI_LP64D)
+#endif
 #else
   /* ---- Intel x86 and AMD x86-64 - */
   SET_ENUM_VALUE(FFI_SYSV);
